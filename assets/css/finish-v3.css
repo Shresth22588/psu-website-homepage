@@ -1,0 +1,110 @@
+/* ===== finish-v3 : accent-word fix + new CTA / journal designs ===== */
+
+/* 1. FIX: accent (<em>) words were invisible. Gradient now paints on each word itself. */
+.psu-complete-page :is(h1,h2,.psu-h2,.psu-title) em:has(.psu-w){
+  background:none !important;animation:none !important;color:inherit !important;
+}
+.psu-complete-page em .psu-w>i{
+  --em-grad:linear-gradient(100deg,#7a4f8c,#c0902f,#2f8a68,#7a4f8c);
+  font-style:italic;font-weight:500;padding-right:.08em;
+  color:transparent !important;-webkit-text-fill-color:transparent;
+  background-image:var(--em-grad);background-size:240% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  animation:lvShim 7s linear infinite;
+}
+.psu-complete-page .psu-section--dark em .psu-w>i,
+.psu-complete-page .psu-cta--dusk em .psu-w>i{
+  --em-grad:linear-gradient(100deg,#ffe9a8,#f2c866,#c9f5d9,#ffe9a8);
+}
+.psu-complete-page .psu-cta--sand em .psu-w>i{
+  --em-grad:linear-gradient(100deg,#b4561f,#d9962b,#8d5f9c,#b4561f);
+}
+@media (prefers-reduced-motion:reduce){.psu-complete-page em .psu-w>i{animation:none}}
+
+/* 2. Shared CTA structure */
+.psu-complete-page .psu-cta.psu-cta--sand,
+.psu-complete-page .psu-cta.psu-cta--dusk{position:relative;overflow:hidden;padding:clamp(3.2rem,6vw,5.6rem) 0}
+.psu-cta--sand .psu-cta__inner,.psu-cta--dusk .psu-cta__inner{position:relative;z-index:2;gap:clamp(1.8rem,4vw,4rem)}
+.psu-cta__copy{max-width:760px}
+.psu-cta__kicker{display:inline-flex;align-items:center;gap:.55rem;margin:0 0 1.2rem;padding:.45rem 1rem;border-radius:99px;font-size:.78rem;font-weight:600;letter-spacing:.04em}
+.psu-cta__kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.psu-complete-page .psu-cta--sand h2,.psu-complete-page .psu-cta--dusk h2{font-size:clamp(2.1rem,3.9vw,3.7rem);line-height:1.1 !important;margin:0 0 1.1rem;max-width:none}
+.psu-cta__text{margin:0 0 1.5rem;max-width:560px;font-size:1.02rem;line-height:1.7;font-weight:400}
+.psu-cta__chips{display:flex;flex-wrap:wrap;gap:.6rem;margin:0;padding:0;list-style:none}
+.psu-cta__chips li{padding:.5rem 1rem;border-radius:99px;font-size:.82rem;font-weight:500}
+.psu-cta__action{display:flex;flex-direction:column;align-items:flex-start;gap:.9rem;flex:none}
+.psu-cta__action small{font-size:.82rem;opacity:.8}
+.psu-complete-page .psu-cta--sand .psu-btn,.psu-complete-page .psu-cta--dusk .psu-btn{
+  border-radius:99px;min-height:58px;padding:1rem 2rem;font-size:.95rem;font-weight:700;letter-spacing:.01em;text-transform:none;
+  transition:transform .3s,box-shadow .3s}
+.psu-complete-page .psu-cta--sand .psu-btn:hover,.psu-complete-page .psu-cta--dusk .psu-btn:hover{transform:translateY(-3px)}
+
+/* 3. Retreat CTA : warm sandalwood + saffron */
+.psu-complete-page .psu-cta.psu-cta--sand{
+  color:#2b1d12;
+  background:radial-gradient(circle at 92% 8%,rgba(255,196,120,.55),transparent 22rem),
+             radial-gradient(circle at 4% 100%,rgba(141,95,156,.18),transparent 20rem),
+             linear-gradient(120deg,#fbefd9,#f7dcc0 55%,#f3e4d2);
+  box-shadow:0 30px 80px rgba(180,110,40,.18)}
+.psu-complete-page .psu-cta--sand h2{color:#2b1d12}
+.psu-cta--sand::before{content:"" !important;display:block !important;position:absolute;right:-90px;top:50%;width:420px;height:420px;margin-top:-210px;border-radius:50%;
+  border:1px solid rgba(180,86,31,.22);box-shadow:0 0 0 38px rgba(180,86,31,.05),0 0 0 78px rgba(180,86,31,.04);z-index:1}
+.psu-cta--sand .psu-cta__kicker{background:rgba(180,86,31,.12);color:#9a4a18}
+.psu-cta--sand .psu-cta__text{color:#5a4533}
+.psu-cta--sand .psu-cta__chips li{background:rgba(255,255,255,.65);border:1px solid rgba(180,86,31,.18);color:#6b4a2b}
+.psu-complete-page .psu-cta--sand .psu-btn{background:#173d31 !important;color:#fff !important;box-shadow:0 14px 34px rgba(23,61,49,.35)}
+
+/* 4. Gallery CTA : midnight indigo + gold, centred */
+.psu-complete-page .psu-cta.psu-cta--dusk{
+  color:#fff;text-align:center;
+  background:radial-gradient(circle at 50% -10%,rgba(242,200,102,.30),transparent 24rem),
+             radial-gradient(circle at 10% 110%,rgba(47,138,104,.35),transparent 22rem),
+             linear-gradient(135deg,#1d1b3d,#2c2250 50%,#123a2f)}
+.psu-cta--dusk::before{content:"✦" !important;display:block !important;position:absolute;left:6%;top:14%;font-size:2.2rem;color:rgba(255,227,154,.5);z-index:1}
+.psu-cta--dusk::after{content:"✦";position:absolute;right:8%;bottom:16%;font-size:3.4rem;color:rgba(255,227,154,.22);z-index:1}
+.psu-cta--dusk .psu-cta__inner{flex-direction:column;align-items:center;justify-content:center}
+.psu-cta--dusk .psu-cta__copy{display:flex;flex-direction:column;align-items:center}
+.psu-complete-page .psu-cta--dusk h2{color:#fff}
+.psu-cta--dusk .psu-cta__kicker{background:rgba(255,255,255,.12);color:#ffe9a8;backdrop-filter:blur(6px)}
+.psu-cta--dusk .psu-cta__text{color:rgba(255,255,255,.82)}
+.psu-cta--dusk .psu-cta__chips{justify-content:center}
+.psu-cta--dusk .psu-cta__chips li{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff}
+.psu-cta--dusk .psu-cta__action{align-items:center}
+.psu-complete-page .psu-cta--dusk .psu-btn{background:linear-gradient(100deg,#ffe39a,#f2c35f) !important;color:#2a1f3d !important;box-shadow:0 14px 40px rgba(242,195,95,.35)}
+
+@media(max-width:800px){
+  .psu-cta--sand .psu-cta__inner{flex-direction:column;align-items:flex-start}
+  .psu-cta--sand::before{width:260px;height:260px;margin-top:-130px;right:-120px}
+}
+
+/* 5. Journal heading : full-width, accent sentence on one line */
+.psu-complete-page .psu-heading.psu-journal-title{display:block;max-width:none;width:100%;margin-bottom:3.2rem}
+.psu-journal-title .psu-h2{font-size:clamp(1.9rem,4.1vw,4rem);line-height:1.12 !important;max-width:none}
+.psu-journal-title .psu-h2 em{display:block;margin-top:.1em}
+@media(min-width:900px){.psu-journal-title .psu-h2 em{white-space:nowrap}}
+.psu-journal-title .psu-lead{margin:1.2rem 0 0;max-width:620px;font-size:1.05rem;line-height:1.7;color:#5b6b63}
+
+/* 6. No sound on/off icons anywhere - sound is always on, plays automatically */
+.sa-btn,.w-mute{display:none !important}
+
+/* 7. Rooms & mindful stays : fits exactly one viewport height (desktop / laptop) */
+@media (min-width:901px) and (min-height:560px){
+  .w-sec.w-stay{height:100vh;height:100svh;min-height:0;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;
+    padding:clamp(76px,10vh,104px) 0 clamp(18px,3.5vh,40px)}
+  .w-stay>.w-wrap{width:100%}
+  .w-stay .w-h2{font-size:clamp(1.9rem,5.4vh,3.4rem);max-width:none;line-height:1.1}
+  .w-stay .st-sub{margin-top:8px;font-size:clamp(.88rem,1.9vh,1.02rem)}
+  .w-stay .g{margin-top:clamp(16px,3.6vh,42px);gap:clamp(14px,2.2vw,26px)}
+  .w-stay .w-rc.st-c:nth-child(2){margin-top:0}
+  .w-stay .st-in{padding:clamp(16px,2.8vh,30px) 26px clamp(16px,2.6vh,28px)}
+  .w-stay .st-em{width:clamp(52px,8.5vh,84px);height:clamp(52px,8.5vh,84px);margin-bottom:clamp(8px,1.8vh,20px)}
+  .w-stay .st-em .w-ic{width:clamp(26px,4.2vh,40px);height:clamp(26px,4.2vh,40px)}
+  .w-stay .w-rc h3{font-size:clamp(1.15rem,3vh,1.55rem);margin:4px 0 clamp(4px,1vh,10px)}
+  .w-stay .w-rc p{font-size:clamp(.82rem,1.8vh,.95rem);margin-bottom:clamp(8px,1.6vh,16px)}
+  .w-stay .st-tags{margin-bottom:clamp(10px,2vh,20px)}
+  .w-stay .st-no{font-size:clamp(2.2rem,5vh,3.2rem);top:12px}
+  .w-stay .w-note{margin-top:clamp(10px,2.4vh,30px);font-size:clamp(.74rem,1.6vh,.88rem)}
+}
+
+/* 8. No "audio playing" equalizer badge on cards - sound still plays, icon never shown */
+.th-eq{display:none !important}

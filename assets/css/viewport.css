@@ -1,0 +1,85 @@
+/* ===== Home: How a visit works / Gallery / Guest experiences
+   - each section fills the viewport height, content centred
+   - clear gap between the rounded sections
+   - Guest experiences: new animated "golden dusk" background ===== */
+.h-home .w-steps,.h-home .w-gal,.h-home .w-testi,
+.w-steps,.w-gal,.w-testi{
+  min-height:100vh;min-height:100svh;
+  display:flex;flex-direction:column;justify-content:center;
+  margin:clamp(18px,3vh,34px) 14px;
+  padding-block:clamp(56px,9vh,110px);
+  box-sizing:border-box;
+}
+.w-steps>.w-wrap,.w-gal>.w-wrap,.w-testi>.w-wrap{width:100%;position:relative;z-index:2}
+.w-gal .w-gwrap{position:relative;z-index:2}
+
+/* ---- Guest experiences: animated golden-dusk background ---- */
+.h-home .w-testi,.w-testi{
+  background:linear-gradient(125deg,#06222e,#0b4a52 22%,#7a2f5e 48%,#c4622d 74%,#e8a13a 100%);
+  background-size:320% 320%;
+  animation:tsBg 22s ease-in-out infinite;
+  isolation:isolate;
+}
+@keyframes tsBg{0%,100%{background-position:0% 40%}50%{background-position:100% 60%}}
+/* slow rotating light rays (kept from before, warmer) */
+.h-home .w-testi::before{background:repeating-conic-gradient(#fff1c022 0 6deg,#0000 6deg 16deg);z-index:0}
+/* floating glow orbs + rising sparks */
+.w-testi::after{
+  content:"";position:absolute;inset:-20%;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(closest-side,#ffd27a66,#0000) 12% 78%/38% 38% no-repeat,
+    radial-gradient(closest-side,#ff8fb855,#0000) 82% 22%/34% 34% no-repeat,
+    radial-gradient(closest-side,#5be0c455,#0000) 52% 96%/30% 30% no-repeat,
+    radial-gradient(2px 2px at 20% 30%,#fff9,#0000),radial-gradient(2px 2px at 64% 18%,#ffe9a8cc,#0000),
+    radial-gradient(3px 3px at 78% 66%,#fff9,#0000),radial-gradient(2px 2px at 36% 82%,#ffd6e8cc,#0000),
+    radial-gradient(2px 2px at 90% 88%,#fff8,#0000),radial-gradient(3px 3px at 8% 12%,#ffe9a8bb,#0000);
+  animation:tsOrb 18s ease-in-out infinite alternate;
+}
+@keyframes tsOrb{
+  0%{transform:translate3d(-3%,2%,0) scale(1)}
+  50%{transform:translate3d(3%,-4%,0) scale(1.08)}
+  100%{transform:translate3d(-2%,-7%,0) scale(1.02)}
+}
+.w-testi .w-eyebrow{background:#ffffff2e;backdrop-filter:blur(6px)}
+.w-testi h2{text-shadow:0 4px 30px #0005}
+.w-testi h2 em{background-size:250% 100%!important;animation:tsShine 6s linear infinite}
+@keyframes tsShine{to{background-position:-250% 0}}
+.h-qs cite,.w-testi cite{color:#ffe39a}
+.h-qs blockquote{text-shadow:0 2px 24px #0004}
+.h-qc button.on i,.h-qc i{background:#ffe39a}
+/* quote card gets a soft glass panel that gently floats */
+.w-testi .h-q{
+  padding:clamp(22px,3.2vw,44px) clamp(22px,3.2vw,44px) 26px;border-radius:34px;
+  background:linear-gradient(145deg,#ffffff1f,#ffffff08);border:1px solid #ffffff2e;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  box-shadow:0 30px 70px #0003,inset 0 1px 0 #ffffff40;
+  animation:tsFloat 8s ease-in-out infinite;
+}
+.w-testi .h-qm{left:14px;top:-34px}
+@keyframes tsFloat{50%{transform:translateY(-10px)}}
+
+@media(max-width:960px){
+  .w-steps,.w-gal,.w-testi{min-height:auto;padding-block:72px}
+}
+@media(prefers-reduced-motion:reduce){
+  .w-testi,.w-testi::after,.w-testi h2 em,.w-testi .h-q{animation:none}
+}
+
+/* ===== Guest experiences: colour follows the quote + voice-reactive glow ===== */
+.w-testi{--tq:#ffd27a;--tq2:#ff8fb8}
+.w-testi[data-cur="0"]{--tq:#ffd27a;--tq2:#ff8fb8}
+.w-testi[data-cur="1"]{--tq:#7be8c4;--tq2:#7ab8ff}
+.w-testi[data-cur="2"]{--tq:#ffb27a;--tq2:#d59bff}
+.w-testi::before{transition:filter 1.4s ease;animation:tsSpin 90s linear infinite}
+@keyframes tsSpin{to{transform:rotate(360deg)}}
+.w-testi .h-q{transition:box-shadow 1.2s ease,border-color 1.2s ease;border-color:color-mix(in srgb,var(--tq) 45%,#ffffff2e)}
+.w-testi .h-q::before{content:"";position:absolute;inset:-2px;border-radius:36px;z-index:-1;pointer-events:none;
+  background:conic-gradient(from 0deg,var(--tq),#0000 30%,var(--tq2) 55%,#0000 80%,var(--tq));opacity:.0;filter:blur(14px);transition:opacity 1s ease}
+.w-testi.tq-drive .h-q::before{opacity:.75;animation:tsRing 6s linear infinite}
+@keyframes tsRing{to{transform:rotate(360deg)}}
+.w-testi.tq-drive .h-q{box-shadow:0 30px 70px #0003,0 0 60px color-mix(in srgb,var(--tq) 40%,transparent),inset 0 1px 0 #ffffff40}
+.w-testi.tq-drive .h-qa{animation:tsPulse 2.4s ease-in-out infinite}
+@keyframes tsPulse{50%{transform:scale(1.12) translateY(-6px);filter:drop-shadow(0 0 26px var(--tq))}}
+.w-testi.tq-drive .h-qc button.on i{animation-duration:15.5s}
+.w-testi .h-qm{color:color-mix(in srgb,var(--tq) 30%,#ffffff12);transition:color 1s}
+@media(prefers-reduced-motion:reduce){.w-testi::before,.w-testi .h-q::before,.w-testi.tq-drive .h-qa{animation:none}}

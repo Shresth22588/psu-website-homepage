@@ -1,0 +1,156 @@
+/* ===== From dis-ease to inner ease: animated illustration (fast ~4.5s) ===== */
+@property --r{syntax:'<percentage>'; inherits:false; initial-value:150%}
+
+.ease{
+  --g:#5f8052; --w1:#a8a05a; --w2:#98804a; --w3:#8a7442;
+  position:relative; width:100%; aspect-ratio:1794/876; cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+.ease__side{position:absolute; inset:0; pointer-events:none}
+.ease__side img{position:absolute; inset:0; width:100%; height:100%; display:block}
+.ease__side--l{clip-path:polygon(0 0,40.5% 0,40.5% 62%,43.5% 62%,43.5% 100%,0 100%)}
+.ease__side--r{clip-path:inset(0 0 0 57%)}
+.ease__fx{position:absolute; inset:0; width:100%; height:100%; overflow:visible; pointer-events:none}
+
+/* ---- static final state (no JS / reduced motion) ---- */
+.ease__side--l img{filter:saturate(.6) sepia(.28)}
+.ease .wl{transform:rotate(var(--d)) scale(.6,.66); fill:var(--w)}
+.ease .wl-stem{stroke:#8f8454}
+.ease .bl{fill:var(--g)}
+.ease .fall,.ease .mote,.ease .ring,.ease .pulse-dot,.ease .spark,.ease .sun-glow{opacity:0}
+.ease .arrow-line,.ease .arrow-head{stroke:#46662a; fill:none; stroke-width:6; stroke-linecap:round; stroke-linejoin:round}
+.ease .petal{fill:#f7dd95; stroke:#e5b657; stroke-width:2}
+.ease .fl-core{fill:#d8963a}
+.ease .rib{stroke:rgba(255,255,255,.35); stroke-width:2.2; fill:none}
+.ease .wl .rib{stroke:rgba(70,50,20,.35)}
+.ease .ring{fill:none; stroke:#efca6b; stroke-width:5; transform-origin:1391px 310px}
+.ease .sun-glow{transform-origin:1391px 310px; mix-blend-mode:screen}
+.ease .mote{fill:#f1cf78}
+.ease .wl,.ease .bl,.ease .fl,.ease .spark,.ease .fall,.ease .petal-g,.ease .sun-glow{transform-box:view-box}
+
+/* ---- armed: waiting for scroll-in ---- */
+.ease.is-armed .ease__side--l img{opacity:0; filter:none}
+.ease.is-armed .ease__side--r img{
+  --r:0%;
+  -webkit-mask-image:radial-gradient(circle at 77.5% 35%,#000 calc(var(--r) - 28%),transparent var(--r));
+          mask-image:radial-gradient(circle at 77.5% 35%,#000 calc(var(--r) - 28%),transparent var(--r));
+  filter:saturate(.1) brightness(1.15); transform:scale(.95); transform-origin:77.5% 62%;
+}
+.ease.is-armed .fx-l{opacity:0}
+.ease.is-armed .wl{transform:none; fill:var(--g)}
+.ease.is-armed .bl{transform:scale(0) rotate(-25deg)}
+.ease.is-armed .fl{transform:scale(0)}
+.ease.is-armed .arrow-line{stroke-dasharray:1; stroke-dashoffset:1}
+.ease.is-armed .arrow-head{opacity:0}
+.ease.is-armed .bl-stem{stroke-dasharray:1; stroke-dashoffset:1}
+
+/* ---- play ---- */
+.ease.is-play .ease__side--l img{
+  animation:eFade .6s ease 0s forwards, eDull 1.5s ease .5s forwards, eTremble 5s ease-in-out 2s infinite;
+}
+.ease.is-play .fx-l{opacity:1; transition:opacity .5s ease .1s}
+/* leaves wither: droop + curl + dry colour */
+.ease.is-play .wl{animation:eWilt 1.3s cubic-bezier(.5,0,.25,1) calc(var(--dl,1.2s) * .35) forwards}
+.ease.is-play .wl-sway{animation:eDangle 3s ease-in-out calc(var(--dl,1.2s) * .35 + 1s) infinite alternate}
+.ease.is-play .fall{animation:eFall 5.5s linear calc(var(--fd,4s) * .45) infinite}
+.ease.is-play .drift{animation-name:eDrift}
+/* arrow */
+.ease.is-play .arrow-line{animation:eDraw .75s cubic-bezier(.55,0,.2,1) 1.45s forwards}
+.ease.is-play .arrow-head{animation:eHead .25s ease 2.12s forwards}
+.ease.is-play .pulse-dot{offset-path:path("M732 468 C 800 482, 850 425, 930 432 C 960 434, 990 440, 1012 442"); animation:eTravel 2.4s ease-in-out 4.2s infinite}
+/* bloom */
+.ease.is-play .ease__side--r img{
+  animation:eBloom 1.7s cubic-bezier(.25,.8,.25,1) 1.9s forwards, eColor 1.9s ease 1.9s forwards;
+}
+.ease.is-play .sun-glow{animation:eGlow 1.8s ease-out 2.0s forwards, eBreathe 4s ease-in-out 3.9s infinite}
+.ease.is-play .bl-stem{animation:eDraw .9s ease 2.2s forwards}
+.ease.is-play .bl{animation:eUnfurl 1s cubic-bezier(.3,1.5,.5,1) calc(var(--dl,5.4s) * .5) forwards}
+.ease.is-play .bl-sway{animation:eSway 3.6s ease-in-out calc(var(--dl,5.4s) * .5 + 1s) infinite alternate}
+.ease.is-play .fl{animation:eGrow 1s cubic-bezier(.3,1.5,.5,1) calc(var(--dl,6.4s) * .5) forwards}
+.ease.is-play .petal-g{animation:ePetal .9s cubic-bezier(.3,1.5,.5,1) calc(var(--pd,6.5s) * .5) backwards}
+.ease.is-play .fl-spin{animation:eSpin 30s linear 5s infinite}
+.ease.is-play .ring{animation:eRing 3.6s ease-out calc(var(--rd,6.4s) * .5) infinite}
+.ease.is-play .mote{animation:eMote 5.5s ease-in-out calc(var(--md,6s) * .4) infinite}
+.ease.is-play .spark{animation:eTwinkle 2.6s ease-in-out var(--sd,3s) infinite}
+
+@keyframes eFade{from{opacity:0}to{opacity:1}}
+@keyframes eDull{to{filter:saturate(.6) sepia(.28)}}
+@keyframes eTremble{
+  0%,100%{transform:translate(0,0) rotate(0)}
+  25%{transform:translate(-1.2px,.6px) rotate(-.18deg)}
+  50%{transform:translate(.8px,-.5px) rotate(.12deg)}
+  75%{transform:translate(-.6px,.4px) rotate(-.1deg)}
+}
+@keyframes eWilt{
+  0%{transform:rotate(0) scale(1); fill:var(--g)}
+  35%{transform:rotate(calc(var(--d) * .25)) scale(.92,.95); fill:#8f9a58}
+  100%{transform:rotate(var(--d)) scale(.6,.66); fill:var(--w)}
+}
+@keyframes eDangle{from{transform:rotate(-2.5deg)}to{transform:rotate(3deg)}}
+@keyframes eFall{
+  0%{opacity:0; transform:translate(0,0) rotate(0)}
+  10%{opacity:.9}
+  35%{transform:translate(-26px,120px) rotate(90deg)}
+  65%{transform:translate(22px,240px) rotate(190deg)}
+  90%{opacity:.8}
+  100%{opacity:0; transform:translate(-14px,340px) rotate(280deg)}
+}
+@keyframes eDrift{
+  0%{opacity:0; transform:translate(0,0) rotate(0)}
+  12%{opacity:.95}
+  40%{transform:translate(30px,90px) rotate(120deg)}
+  70%{transform:translate(-24px,190px) rotate(240deg)}
+  100%{opacity:0; transform:translate(18px,290px) rotate(340deg)}
+}
+@keyframes eDraw{to{stroke-dashoffset:0}}
+@keyframes eHead{from{opacity:0}to{opacity:1}}
+@keyframes eTravel{0%{offset-distance:0%; opacity:0}15%{opacity:.95}85%{opacity:.95}100%{offset-distance:100%; opacity:0}}
+@keyframes eBloom{from{--r:0%; transform:scale(.95)}to{--r:150%; transform:scale(1)}}
+@keyframes eColor{to{filter:saturate(1) brightness(1)}}
+@keyframes eGlow{0%{opacity:0; transform:scale(.4)}45%{opacity:.5}100%{opacity:.3; transform:scale(1)}}
+@keyframes eBreathe{0%,100%{opacity:.3; transform:scale(1)}50%{opacity:.18; transform:scale(1.07)}}
+@keyframes eUnfurl{
+  0%{transform:scale(0) rotate(-25deg)}
+  100%{transform:scale(1) rotate(0)}
+}
+@keyframes eGrow{0%{transform:scale(0)}100%{transform:scale(1)}}
+@keyframes eSway{from{transform:rotate(-3deg)}to{transform:rotate(3.5deg)}}
+@keyframes ePetal{from{transform:scale(0) rotate(-50deg)}to{transform:scale(1) rotate(0)}}
+@keyframes eSpin{to{transform:rotate(360deg)}}
+@keyframes eRing{
+  0%{opacity:.6; transform:scale(.96)}
+  100%{opacity:0; transform:scale(1.22)}
+}
+@keyframes eMote{
+  0%{opacity:0; transform:translateY(0)}
+  25%{opacity:.85}
+  75%{opacity:.6}
+  100%{opacity:0; transform:translateY(-70px)}
+}
+@keyframes eTwinkle{
+  0%,100%{opacity:0; transform:scale(0) rotate(0)}
+  40%{opacity:1; transform:scale(1) rotate(45deg)}
+  70%{opacity:.2; transform:scale(.4) rotate(90deg)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .ease *{animation:none !important; transition:none !important}
+}
+/* ===== extras ===== */
+.ease{transform:perspective(1000px) rotateX(calc(var(--py,0) * -3deg)) rotateY(calc(var(--px,0) * 4deg)); transition:transform .35s ease-out; will-change:transform}
+.ease .rays-wrap,.ease .mist-wrap{opacity:0}
+.ease .rays{transform-origin:1391px 310px; transform-box:view-box; mix-blend-mode:screen}
+.ease .mist{fill:#b9c4a2}
+.ease .mist-wrap{mix-blend-mode:normal}
+.ease.is-play .rays-wrap{animation:eRaysIn 1.6s ease 2.3s forwards}
+.ease.is-play .rays{animation:eRaysSwing 7s ease-in-out 2.3s infinite alternate}
+.ease.is-play .mist-wrap{animation:eMistIn .7s ease .2s forwards, eMistOut 2s ease 2.2s forwards}
+.ease.is-play .mist{animation:eMistDrift 6s ease-in-out var(--md2,0s) infinite alternate}
+.ease.is-play .ease__side--r{animation:eBreath 5s ease-in-out 3.8s infinite alternate; transform-origin:77.5% 72%}
+@keyframes eRaysIn{from{opacity:0}to{opacity:.5}}
+@keyframes eRaysSwing{from{transform:rotate(-5deg); opacity:1}to{transform:rotate(5deg); opacity:.65}}
+@keyframes eMistIn{from{opacity:0}to{opacity:.38}}
+@keyframes eMistOut{to{opacity:.1}}
+@keyframes eMistDrift{from{transform:translate(-18px,4px) scale(1)}to{transform:translate(22px,-6px) scale(1.12)}}
+@keyframes eBreath{from{transform:scale(1)}to{transform:scale(1.014)}}
+@media (prefers-reduced-motion:reduce){.ease{transform:none !important}}

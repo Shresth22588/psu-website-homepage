@@ -1,0 +1,47 @@
+.sa-btn{position:fixed;left:18px;bottom:18px;z-index:60;display:flex;align-items:center;gap:8px;padding:10px 16px 10px 12px;border:0;border-radius:999px;background:#ffffffe6;color:#0f2a22;font:600 .82rem/1 Montserrat,system-ui,sans-serif;box-shadow:0 8px 26px #0f2a2230;backdrop-filter:blur(10px);cursor:pointer;opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .4s,transform .4s}
+.sa-btn.show{opacity:1;transform:none;pointer-events:auto}
+.sa-btn svg{width:20px;height:20px;fill:none;stroke:#14634b;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+.sa-btn .sa-sp{fill:#14634b22}
+.sa-btn .sa-off{display:none}.sa-btn.muted .sa-off{display:block}.sa-btn.muted .sa-on{display:none}
+.sa-btn:not(.muted) .sa-on{animation:saw 1.8s ease-in-out infinite}
+@keyframes saw{50%{opacity:.35}}
+@media(max-width:600px){.sa-btn{left:12px;bottom:84px;padding:9px 13px 9px 10px}}
+@media(prefers-reduced-motion:reduce){.sa-btn,.sa-btn .sa-on{transition:none;animation:none}}
+
+/* ===== Holistic therapies: audio-led spotlight (cards follow the voice) ===== */
+.w-th .w-marq.th-drv .w-trk{animation:none !important;will-change:transform}
+.w-th .w-tc{transition:transform .5s var(--ease),opacity .7s ease,box-shadow .7s ease}
+.w-th.th-drive .w-tc{opacity:.5}
+.w-th.th-drive .w-tc.th-on{opacity:1;transform:translateY(-10px);box-shadow:0 0 0 3px #ffe39a,0 24px 54px #8f4fb545}
+.th-eq{position:absolute;top:16px;right:16px;z-index:3;display:none;align-items:flex-end;gap:3px;height:14px;padding:8px 11px;border-radius:999px;background:#ffffffee;box-sizing:content-box}
+.th-eq s{display:block;width:3px;height:100%;border-radius:2px;background:#14634b;transform-origin:bottom;animation:thEq .9s ease-in-out infinite alternate}
+.th-eq s:nth-child(2){animation-delay:-.3s}.th-eq s:nth-child(3){animation-delay:-.6s}
+@keyframes thEq{from{transform:scaleY(.25)}to{transform:scaleY(1)}}
+.w-th.th-drive .w-tc.th-on .th-eq{display:flex}
+.th-capw{min-height:84px}
+.th-cap{margin:0 auto;max-width:700px;text-align:center;font-size:.95rem;line-height:1.65;color:#3d4f47;opacity:0;transform:translateY(6px);transition:opacity .5s ease,transform .5s ease}
+.th-cap b{display:block;margin-bottom:2px;font-size:1.05rem;color:#14634b}
+.w-th.th-drive .th-cap{opacity:1;transform:none}
+
+/* ===== Restful spaces (amenity cards): card lights up while its clip speaks ===== */
+.w-am .w-am-c{transition:transform .5s var(--ease),opacity .7s ease,box-shadow .7s ease}
+.w-am.am-drive .w-am-c{opacity:.55}
+.w-am.am-drive .w-am-c.am-on{opacity:1;transform:translateY(-12px);box-shadow:0 34px 70px #14634b30}
+.w-am.am-drive .w-am-c.am-on::after{opacity:1}
+.w-am.am-drive .w-am-c.am-on .th-eq{display:flex}
+.w-am-c .th-eq{top:16px;right:16px}
+
+/* ===== Rooms & mindful stays: card lights up while its clip speaks ===== */
+.w-rooms .w-rc{position:relative;transition:transform .5s ease,opacity .7s ease,box-shadow .7s ease}
+.w-rooms.rm-drive .w-rc{opacity:.55}
+.w-rooms.rm-drive .w-rc.rm-on{opacity:1;transform:translateY(-12px);box-shadow:0 0 0 3px #ffe39a,0 30px 64px #0f2a2250}
+.w-rooms.rm-drive .w-rc.rm-on .th-eq{display:flex}
+.w-rc .th-eq{top:16px;right:16px}
+
+/* ===== Ahara (six rasas): voice-driven highlight ===== */
+.w-food .fd-card .th-eq{top:18px;right:20px}
+.w-food.rs-drive .fd-card .th-eq{display:flex}
+.w-food.rs-drive .fd-core{animation:stBorder 8s linear infinite,rsBreath 3.2s ease-in-out infinite}
+.w-food.rs-drive .fd-core .fd-pulse{animation-duration:1.8s}
+@keyframes rsBreath{50%{transform:scale(1.035);filter:drop-shadow(0 0 28px color-mix(in srgb,var(--rc,#2f9b74) 55%,transparent))}}
+@media(prefers-reduced-motion:reduce){.w-food.rs-drive .fd-core{animation:stBorder 8s linear infinite}}

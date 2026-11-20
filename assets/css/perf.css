@@ -1,0 +1,54 @@
+/* =====================================================================
+   PERF LAYER — loaded LAST on every page. Goal: zero jank / zero hang.
+   1) Nothing animates while it is off-screen (pf-off set by perf.js)
+   2) No big blur() / backdrop-filter / blend layers repainting each frame
+   3) Cheap entrance animations (opacity + translate only, no blur)
+   ===================================================================== */
+
+/* 1 — pause every animation of a section that is not on screen */
+.pf-off, .pf-off *, .pf-off *::before, .pf-off *::after{animation-play-state:paused !important}
+html.pf-hidden *, html.pf-hidden *::before, html.pf-hidden *::after{animation-play-state:paused !important}
+
+/* 2a — backdrop-filter re-blurs the page behind it on every scroll frame: remove (except modals) */
+*:not(.psu-book-modal__backdrop):not(.psu-gx-lb__backdrop),
+*:not(.psu-book-modal__backdrop):not(.psu-gx-lb__backdrop)::before,
+*:not(.psu-book-modal__backdrop):not(.psu-gx-lb__backdrop)::after{
+  -webkit-backdrop-filter:none !important;backdrop-filter:none !important}
+/* the glass header / chips lose their blur, so give them a slightly more solid fill */
+.w-hd.s,body.h-home .w-hd{background:color-mix(in srgb,#fff 96%,transparent)}
+.sa-btn{background:#fffffff2}
+
+/* 2b — big animated blurred blobs -> plain soft radial gradients (same look, no per-frame blur) */
+.lv-blobs b,.w-food::before,.w-food::after,.vz-aur i,.wm-bl,.fd-steam i,.h-aur i{filter:none !important}
+.lv-blobs b:nth-child(1){background:radial-gradient(circle,#d9b8ee 0,#d9b8ee00 68%) !important;width:560px;height:560px}
+.lv-blobs b:nth-child(2){background:radial-gradient(circle,#b6e6cc 0,#b6e6cc00 68%) !important;width:560px;height:560px}
+.w-food::before{background:radial-gradient(circle,#ffe39a 0,#ffe39a00 68%) !important;width:480px;height:480px}
+.w-food::after{background:radial-gradient(circle,#d9b8ee 0,#d9b8ee00 68%) !important;width:440px;height:440px}
+
+/* 2c — blend modes on large moving layers force a full-page readback each frame */
+#lv-glow,.vz-aur i,.w-stay .st-aur,.h-ex u{mix-blend-mode:normal !important}
+#lv-glow{will-change:transform}
+.vz-aur i{will-change:auto}
+
+/* ken-burns zoom on <video> re-scales decoded video every frame: off */
+.psu-hero-media video{animation:none !important}
+
+/* 3 — entrance animations without blur (blur on text = repaint every frame) */
+@keyframes vmxUpBlur{from{opacity:0;translate:0 22px}to{opacity:1;translate:0 0}}
+@keyframes vmxWord{from{opacity:0;translate:0 .5em}to{opacity:1;translate:0 0}}
+@keyframes ptWord{from{opacity:0;translate:0 .5em}}
+@keyframes hW{from{opacity:0;transform:translateY(.5em)}to{opacity:1;transform:none}}
+.wd,.psu-w{filter:none !important}
+
+/* shimmering gradient text repaints each frame: keep it still */
+.w-hero h1 em,.w-h2 em,.w-body h2 em,.h-home .w-hero h1 em{animation:none !important}
+
+/* GPU-friendly hints only on the things that really move continuously */
+.w-trk,.lv-marquee div,.h-pan,.h-ufo,.h-fly{will-change:transform}
+img,video{content-visibility:visible}
+img{image-rendering:auto}
+
+/* reduce motion users: respect it fully */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important}
+}

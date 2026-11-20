@@ -1,0 +1,190 @@
+/* ==========================================================================
+   INNER PAGES LAYER — visible logo, tree-canopy hero, calmer motion
+   Loaded last on every page except index.html
+   ========================================================================== */
+:root{
+  --ip-forest:#0f3b2d; --ip-leaf:#2f9b74; --ip-mint:#c9f5d9; --ip-cream:#fff6dc; --ip-gold:#f0c565;
+  --ip-ease:cubic-bezier(.22,.8,.28,1);
+}
+
+/* 1 ─ Header: always solid white so the logo is never lost over a photo ───── */
+body.psu-site-page .w-hd{
+  background:rgba(255,255,255,.97)!important;
+  backdrop-filter:blur(14px);
+  box-shadow:0 2px 22px rgba(12,41,34,.14);
+  padding:10px 28px!important;
+}
+body.psu-site-page .w-hd.s{padding-block:6px!important}
+body.psu-site-page .w-logo img{
+  height:68px!important;width:auto;filter:none!important;
+  transition:height .35s var(--ip-ease),transform .35s var(--ip-ease);
+}
+body.psu-site-page .w-hd.s .w-logo img{height:54px!important}
+body.psu-site-page .w-logo:hover img{transform:scale(1.04)}
+body.psu-site-page .w-pills{background:#eef5f0!important}
+@media(max-width:1060px){body.psu-site-page .w-pills{inset:88px 16px auto!important}}
+@media(max-width:600px){
+  body.psu-site-page .w-logo img{height:52px!important}
+  body.psu-site-page .w-hd.s .w-logo img{height:44px!important}
+}
+
+/* scroll progress */
+.ip-progress{position:fixed;top:0;left:0;height:3px;width:100%;transform-origin:0 50%;transform:scaleX(0);
+  background:linear-gradient(90deg,var(--ip-leaf),var(--ip-gold),#b78ad6);z-index:2600;pointer-events:none}
+
+/* 2 ─ Hero: tree canopy photo ─────────────────────────────────────────────── */
+body.psu-site-page .psu-complete-page .psu-hero{
+  min-height:min(760px,calc(100svh - 20px));
+  border-radius:0 0 56px 56px;
+  background:var(--ip-forest);
+}
+body.psu-site-page .psu-complete-page .psu-hero__inner{padding:11rem 0 6rem}
+body.psu-site-page .psu-hero-media{background:var(--ip-forest)}
+body.psu-site-page .psu-hero-media img{
+  position:absolute;inset:-4%;width:108%;height:108%;object-fit:cover;object-position:center 40%;
+  transform-origin:50% 45%;
+  animation:ipKen 30s ease-in-out infinite alternate;
+  will-change:transform;
+}
+@keyframes ipKen{from{transform:scale(1) translate3d(0,0,0)}to{transform:scale(1.1) translate3d(-1.2%,-1%,0)}}
+
+/* shade: dark green on the text side, sky stays luminous on the right */
+body.psu-site-page .psu-complete-page .psu-hero::after{
+  background:
+    linear-gradient(90deg,rgba(6,34,26,.88) 0%,rgba(8,42,32,.66) 38%,rgba(8,42,32,.18) 72%,rgba(8,42,32,.05) 100%),
+    linear-gradient(0deg,rgba(6,30,23,.55),transparent 45%),
+    linear-gradient(180deg,rgba(6,30,23,.35),transparent 22%)!important;
+}
+/* drifting sunlight through the leaves */
+body.psu-site-page .psu-complete-page .psu-hero::before{
+  content:"";display:block!important;position:absolute;inset:-20%;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 28% 55% at 62% 8%,rgba(255,247,200,.34),transparent 70%),
+    radial-gradient(ellipse 16% 48% at 78% 0%,rgba(255,247,200,.22),transparent 70%),
+    radial-gradient(ellipse 12% 40% at 48% 0%,rgba(255,247,200,.16),transparent 70%);
+  mix-blend-mode:screen;transform-origin:70% 0;
+  animation:ipRays 14s ease-in-out infinite alternate;
+}
+@keyframes ipRays{from{transform:rotate(-4deg);opacity:.55}to{transform:rotate(5deg);opacity:1}}
+
+/* floating leaves (spans injected by inner-pages.js) */
+.ip-leaves{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.ip-leaves i{
+  position:absolute;top:-8%;width:var(--s);height:calc(var(--s)*1.7);left:var(--x);opacity:0;
+  background:radial-gradient(ellipse at 30% 30%,#b7f0c4,#3fae6d 70%);
+  border-radius:100% 0 100% 0;filter:blur(.3px);
+  animation:ipFall var(--d) linear var(--delay) infinite;
+}
+@keyframes ipFall{
+  0%{transform:translate3d(0,0,0) rotate(0);opacity:0}
+  12%{opacity:.7}
+  50%{transform:translate3d(var(--dx),55vh,0) rotate(160deg)}
+  100%{transform:translate3d(calc(var(--dx)*-.5),115vh,0) rotate(340deg);opacity:0}
+}
+
+/* 3 ─ Hero text: one orchestrated entrance ───────────────────────────────── */
+body.psu-site-page .psu-hero__inner>*:not(h1){animation:ipRise .9s var(--ip-ease) both}
+body.psu-site-page .psu-hero__inner>*:nth-child(1){animation-delay:.05s}
+body.psu-site-page .psu-hero__inner>*:nth-child(2){animation-delay:.18s}
+body.psu-site-page .psu-hero__inner>*:nth-child(3){animation-delay:.32s}
+body.psu-site-page .psu-hero__inner>*:nth-child(4){animation-delay:.48s}
+body.psu-site-page .psu-hero__inner>*:nth-child(5){animation-delay:.62s}
+body.psu-site-page .psu-hero__inner>*:nth-child(n+6){animation-delay:.76s}
+@keyframes ipRise{from{opacity:0;transform:translate3d(0,26px,0)}to{opacity:1;transform:none}}
+
+body.psu-site-page .psu-hero .psu-title{
+  color:#fff;text-shadow:0 2px 28px rgba(4,26,19,.55);
+}
+/* accent words in the hero: clean cream→gold→mint, no muddy shadow */
+body.psu-site-page .psu-hero h1 em:not(:has(.lv-w)),
+body.psu-site-page .psu-hero .psu-title em:not(:has(.lv-w)){
+  background-image:linear-gradient(100deg,#fff3c2 0%,#ffd36e 38%,#c9f5d9 72%,#fff3c2 100%)!important;
+  background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;color:transparent!important;
+  -webkit-text-fill-color:transparent;text-shadow:none!important;
+  filter:drop-shadow(0 3px 14px rgba(3,22,16,.45));
+  font-weight:700!important;
+}
+body.psu-site-page .psu-hero .psu-intro,
+body.psu-site-page .psu-hero .psu-hero__inner>p:not(.psu-kicker):not(.cg-crumb){
+  color:rgba(255,255,255,.94);text-shadow:0 1px 14px rgba(4,26,19,.6);max-width:640px;
+}
+body.psu-site-page .psu-hero .psu-kicker{
+  background:rgba(255,255,255,.16)!important;border:1px solid rgba(255,255,255,.28);
+}
+body.psu-site-page .psu-hero .cg-crumb,body.psu-site-page .psu-hero .cg-crumb a{color:#fff}
+
+body.psu-site-page .psu-hero h1 em:has(.lv-w){background:none!important;filter:none!important;text-shadow:none!important}
+body.psu-site-page .psu-hero em .lv-w>i,body.psu-site-page .psu-cta em .lv-w>i,body.psu-site-page .cg-band em .lv-w>i{
+  background-image:linear-gradient(100deg,#fff3c2 0%,#ffd36e 40%,#c9f5d9 75%,#fff3c2 100%)!important;background-size:220% 100%;
+  -webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;-webkit-text-fill-color:transparent;
+  text-shadow:none!important;filter:drop-shadow(0 3px 12px rgba(3,22,16,.5));font-weight:700}
+
+/* mouse/scroll cue bounce */
+body.psu-site-page .psu-hero [class*="scroll"],body.psu-site-page .psu-hero .lv-scroll{animation:ipBob 2.2s ease-in-out infinite}
+@keyframes ipBob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+/* 4 ─ Sections: reveal on scroll (class is added by JS only) ─────────────── */
+.ip-rv{opacity:0;transform:translate3d(0,34px,0) scale(.985);
+  transition:opacity .8s var(--ip-ease),transform .8s var(--ip-ease);transition-delay:var(--rd,0s)}
+.ip-rv.ip-in{opacity:1;transform:none}
+
+/* headings get a growing gold underline once visible */
+body.psu-site-page main h2.cg-title,body.psu-site-page main .psu-h2{position:relative}
+body.psu-site-page main .cg-head .cg-title::after,
+body.psu-site-page main .psu-section-head h2::after{
+  content:"";display:block;height:3px;width:0;margin-top:.7rem;border-radius:3px;
+  background:linear-gradient(90deg,var(--ip-leaf),var(--ip-gold));transition:width 1s var(--ip-ease) .25s}
+body.psu-site-page main .ip-in .cg-title::after,
+body.psu-site-page main .cg-head.ip-in .cg-title::after,
+body.psu-site-page main .psu-section-head.ip-in h2::after{width:84px}
+
+/* 5 ─ Cards & images: hover that answers the pointer ────────────────────── */
+body.psu-site-page .cg-pillar,body.psu-site-page .rs-card,body.psu-site-page .psu-card,
+body.psu-site-page .stay-card,body.psu-site-page .psu-stay-card,body.psu-site-page .psu-article,
+body.psu-site-page .psu-journal-grid article,body.psu-site-page .psu-ct__card,body.psu-site-page .psu-testimonial-card{
+  transition:transform .45s var(--ip-ease),box-shadow .45s var(--ip-ease),border-color .45s;
+}
+body.psu-site-page .cg-pillar:hover,body.psu-site-page .rs-card:hover,body.psu-site-page .psu-card:hover,
+body.psu-site-page .stay-card:hover,body.psu-site-page .psu-stay-card:hover,body.psu-site-page .psu-article:hover,
+body.psu-site-page .psu-journal-grid article:hover,body.psu-site-page .psu-ct__card:hover{
+  transform:translateY(-8px);box-shadow:0 26px 50px -18px rgba(15,59,45,.35);border-color:rgba(47,155,116,.45);
+}
+body.psu-site-page main img{transition:transform .9s var(--ip-ease),filter .6s}
+body.psu-site-page main :is(.psu-card,.stay-card,.psu-stay-card,.psu-article,.psu-journal-grid article,.psu-gallery a,.psu-gallery figure,[class*="gallery"] figure,[class*="gallery"] a):hover img{transform:scale(1.07)}
+body.psu-site-page .psu-hero-media img{transition:none}
+
+/* buttons: soft sheen sweep */
+body.psu-site-page .psu-btn,body.psu-site-page .cg-btn,body.psu-site-page .w-btn{position:relative;overflow:hidden}
+body.psu-site-page .psu-btn::after,body.psu-site-page .cg-btn::after{
+  content:"";position:absolute;inset:0;transform:translateX(-120%) skewX(-18deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.35),transparent);transition:transform .8s var(--ip-ease);pointer-events:none}
+body.psu-site-page .psu-btn:hover::after,body.psu-site-page .cg-btn:hover::after{transform:translateX(120%) skewX(-18deg)}
+
+/* 6 ─ Closing bands: tree canopy again, so the page ends where it began ──── */
+body.psu-site-page .psu-cta,body.psu-site-page .cg-band,body.psu-site-page .psu-retreat-band{
+  position:relative;isolation:isolate;overflow:hidden;color:#fff;
+  background:
+    linear-gradient(135deg,rgba(8,42,32,.9),rgba(15,59,45,.74)),
+    url("../images/optimized/tree-canopy-hero.jpg") center/cover fixed!important;
+}
+body.psu-site-page .psu-cta h2,body.psu-site-page .cg-band h2,body.psu-site-page .psu-retreat-band h2{color:#fff}
+body.psu-site-page .psu-cta h2 em,body.psu-site-page .cg-band h2 em,body.psu-site-page .psu-retreat-band h2 em{
+  background-image:linear-gradient(100deg,#fff3c2,#ffd36e,#c9f5d9,#fff3c2)!important;
+  -webkit-background-clip:text;background-clip:text;color:transparent!important;-webkit-text-fill-color:transparent}
+
+/* 7 ─ Mobile & accessibility ─────────────────────────────────────────────── */
+@media(max-width:800px){
+  body.psu-site-page .psu-complete-page .psu-hero{border-radius:0 0 34px 34px;min-height:620px}
+  body.psu-site-page .psu-complete-page .psu-hero__inner{padding:9.5rem 0 4rem}
+  body.psu-site-page .psu-complete-page .psu-hero::after{
+    background:linear-gradient(0deg,rgba(6,30,23,.92) 0%,rgba(8,42,32,.6) 55%,rgba(8,42,32,.3) 100%)!important}
+  body.psu-site-page .psu-cta,body.psu-site-page .cg-band,body.psu-site-page .psu-retreat-band{background-attachment:scroll!important}
+  .ip-leaves i:nth-child(n+7){display:none}
+}
+@media(prefers-reduced-motion:reduce){
+  body.psu-site-page .psu-hero-media img,body.psu-site-page .psu-complete-page .psu-hero::before,
+  .ip-leaves i,body.psu-site-page .psu-hero__inner>*:not(h1){animation:none!important}
+  .ip-rv{opacity:1;transform:none;transition:none}
+  .ip-leaves{display:none}
+}

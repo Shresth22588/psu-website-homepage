@@ -1,0 +1,151 @@
+/* Hero: Morning / Evening / Night sadhana scenes (animated sky, icons, chips) */
+.w-hero,.ws-sadhana{--pc:#f0b84a}
+.ws-sadhana[data-ph=evening]{--pc:#ff8a5c}.ws-sadhana[data-ph=night]{--pc:#9fb4ff}
+
+/* ---- clearer background video + time-of-day colour grade ---- */
+.h-home .w-hero .h-vs{background:linear-gradient(90deg,#06261ebf 0,#06261e66 34%,#06261e11 62%,#0000 100%),linear-gradient(0deg,#06261e80,#0000 32%)}
+.h-home .w-hero .h-vid{filter:saturate(1.2) contrast(1.06) brightness(1.08)}
+.h-home .w-hero h1,.h-home .w-hero p.lead{text-shadow:0 2px 22px #04201a99}
+.ph-tint{position:absolute;inset:0;pointer-events:none;z-index:0;background:#0000;transition:background 1.4s ease}
+.ws-sadhana[data-ph=evening] .ph-tint{background:linear-gradient(180deg,#ff7a4a1f,#d6457033 70%,#5b2f7a40);mix-blend-mode:soft-light}
+.ws-sadhana[data-ph=night] .ph-tint{background:linear-gradient(180deg,#0a1a5a99,#0b1f6a66);mix-blend-mode:multiply}
+.ws-sadhana[data-ph=night] .ph-tint::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 50% at 80% 10%,#9fb4ff33,#0000)}
+.ws-sadhana .w-disc{transition:filter 1.4s ease,box-shadow 1.4s ease}
+.ws-sadhana[data-ph=evening] .w-disc{filter:hue-rotate(-120deg) saturate(1.1);box-shadow:0 0 110px #ff8a5c66}
+.ws-sadhana[data-ph=night] .w-disc{filter:hue-rotate(78deg) saturate(.9) brightness(.9);box-shadow:0 0 110px #7f98ff66}
+.ws-sadhana .sd-halo{transition:filter 1.4s}
+.ws-sadhana[data-ph=evening] .sd-halo{filter:hue-rotate(-14deg) saturate(1.3)}
+.ws-sadhana[data-ph=night] .sd-halo{filter:hue-rotate(165deg) brightness(.95)}
+.ws-sadhana .sd-om{transition:fill 1.2s}.ws-sadhana[data-ph=evening] .sd-om{fill:#ffd2b0}.ws-sadhana[data-ph=night] .sd-om{fill:#d5e1ff}
+.ws-sadhana .sd-ring{transition:stroke 1.2s}.ws-sadhana[data-ph=evening] .sd-ring{stroke:#ffb48a}.ws-sadhana[data-ph=night] .sd-ring{stroke:#b9c9ff}
+
+/* ---- sky inside the arch ---- */
+.sk{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden;border-radius:inherit}
+.w-arch .sd{z-index:2}
+.sk-l{position:absolute;inset:0;opacity:0;transition:opacity 1.3s ease}
+.sk-m{background:linear-gradient(180deg,#6fcdbb 0,#bfeed0 38%,#ffe9a8 72%,#ffd08a 100%)}
+.sk-e{background:linear-gradient(180deg,#4a3590 0,#b8508f 38%,#ff8a62 74%,#ffc06a 100%)}
+.sk-n{background:linear-gradient(180deg,#050f2e 0,#102a5c 55%,#2a2d78 100%)}
+.ws-sadhana[data-ph=morning] .sk-m,.ws-sadhana[data-ph=evening] .sk-e,.ws-sadhana[data-ph=night] .sk-n{opacity:.9}
+.sk-sun{position:absolute;border-radius:50%;aspect-ratio:1}
+.sk-m .sk-sun{left:12%;top:20%;width:30%;background:radial-gradient(circle at 40% 35%,#fffbe0,#ffd15c 60%,#ffb347);box-shadow:0 0 40px 14px #ffd27a99;animation:skRise 9s ease-in-out infinite alternate}
+.sk-rays{position:absolute;left:-3%;top:11%;width:48%;aspect-ratio:1;border-radius:50%;background:repeating-conic-gradient(#fff6c855 0 6deg,#0000 6deg 20deg);-webkit-mask:radial-gradient(#000 20%,#0000 70%);mask:radial-gradient(#000 20%,#0000 70%);animation:skSpin 40s linear infinite}
+.sk-e .sk-sun{left:22%;top:40%;width:56%;background:radial-gradient(circle,#ffe6a8,#ff8a4a 62%,#e5486b);box-shadow:0 0 70px 26px #ff7a5aaa;animation:skSink 11s ease-in-out infinite alternate}
+@keyframes skRise{from{transform:translateY(70%) scale(.85);opacity:.7}to{transform:none;opacity:1}}
+@keyframes skSink{from{transform:translateY(-10%)}to{transform:translateY(26%) scale(1.06)}}
+@keyframes skSpin{to{transform:rotate(360deg)}}
+.sk-cl{position:absolute;left:-40%;width:64px;height:15px;border-radius:99px;background:#fff;opacity:.75;animation:skCl 30s linear infinite}
+.sk-cl::before,.sk-cl::after{content:"";position:absolute;bottom:6px;border-radius:50%;background:inherit}
+.sk-cl::before{left:10px;width:26px;height:22px}.sk-cl::after{left:30px;width:20px;height:17px}
+.sk-cl.c1{top:30%}.sk-cl.c2{top:50%;transform:scale(.7);animation-duration:42s;animation-delay:-18s}.sk-cl.c3{top:16%;transform:scale(.55);animation-duration:55s;animation-delay:-30s}
+.sk-e .sk-cl{background:#ffd6c4;opacity:.6}
+@keyframes skCl{to{left:120%}}
+.sk-bd{position:absolute;left:-14%;width:20px;height:9px;animation:skBd 14s linear infinite}
+.sk-bd svg{width:100%;height:100%;overflow:visible;fill:none;stroke:#2c4a3c;stroke-width:1.6;stroke-linecap:round;transform-origin:center;animation:skFlap .5s ease-in-out infinite alternate}
+.sk-e .sk-bd svg{stroke:#3a1d44}
+.sk-bd.b1{top:22%}.sk-bd.b2{top:30%;animation-delay:-4s;scale:.75}.sk-bd.b3{top:15%;animation-delay:-8s;scale:.6}
+@keyframes skBd{to{left:112%;translate:0 -18px}}@keyframes skFlap{to{transform:scaleY(.35)}}
+.sk-moon{position:absolute;right:13%;top:10%;width:22%;color:#fff3c4;fill:currentColor;stroke:none;filter:drop-shadow(0 0 12px #ffe9a8cc);animation:skMoon 6s ease-in-out infinite alternate}
+@keyframes skMoon{from{transform:translateY(5px) rotate(-6deg)}to{transform:translateY(-3px) rotate(4deg);filter:drop-shadow(0 0 20px #fff1b8)}}
+.sk-st{position:absolute;inset:0}
+.sk-st s{position:absolute;width:var(--z,2px);height:var(--z,2px);border-radius:50%;background:#fff;box-shadow:0 0 6px #fff;animation:skTw var(--d,3s) ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes skTw{from{opacity:.15;transform:scale(.7)}to{opacity:1;transform:scale(1.3)}}
+.sk-sh{position:absolute;top:8%;left:62%;width:70px;height:2px;border-radius:2px;background:linear-gradient(90deg,#fff,#fff0);opacity:0;transform:rotate(32deg);animation:skSh 7s 2s ease-out infinite}
+@keyframes skSh{0%{opacity:0;translate:0 0}4%{opacity:1}22%{opacity:0;translate:-110px 70px}100%{opacity:0;translate:-110px 70px}}
+.sk-ff{position:absolute;inset:0}
+.sk-ff b{position:absolute;bottom:var(--b,20%);left:var(--l,50%);width:5px;height:5px;border-radius:50%;background:#d6ff9a;box-shadow:0 0 10px 3px #d6ff9acc;animation:skFf var(--d,9s) ease-in-out infinite,skFb 1.8s ease-in-out infinite alternate;animation-delay:var(--dl,0s)}
+@keyframes skFf{0%{translate:0 0}33%{translate:18px -40px}66%{translate:-14px -80px}100%{translate:6px -120px}}@keyframes skFb{from{opacity:.2}to{opacity:1}}
+.sk-n,.sk-e .sk-st{}
+/* diyas at the foot of the arch */
+.sk-dy{position:absolute;bottom:5%;width:11%;aspect-ratio:1.3;opacity:0;transition:opacity 1.2s}
+.sk-dy.l{left:7%}.sk-dy.r{right:7%}
+.sk-dy::before{content:"";position:absolute;left:0;right:0;bottom:0;height:45%;border-radius:0 0 99px 99px;background:linear-gradient(#e9a547,#a8591d)}
+.sk-dy i{position:absolute;left:50%;bottom:36%;width:34%;height:62%;margin-left:-17%;border-radius:50% 50% 50% 50%/70% 70% 30% 30%;background:radial-gradient(circle at 50% 80%,#fff6c4,#ffb637 55%,#ff6a2a);transform-origin:50% 100%;box-shadow:0 0 18px 8px #ffa83cb0;animation:skFl .9s ease-in-out infinite alternate}
+.sk-dy.r i{animation-delay:-.4s}
+@keyframes skFl{from{transform:scale(.92,.88) skewX(-4deg)}to{transform:scale(1.05,1.12) skewX(5deg)}}
+.ws-sadhana[data-ph=evening] .sk-dy,.ws-sadhana[data-ph=night] .sk-dy{opacity:1}
+.sk-vg{position:absolute;inset:0;background:radial-gradient(90% 70% at 50% 60%,#0000 55%,#00000030)}
+.ws-sadhana[data-ph=morning] .sk-n .sk-st,.ws-sadhana[data-ph=morning] .sk-n .sk-ff{display:none}
+
+/* ---- tag + switcher ---- */
+.sd-tag{z-index:3;gap:9px;padding:6px 15px 6px 8px;transition:background .8s,border-color .8s}
+.sd-tag .tg-ic{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--pc) 30%,#0000);color:var(--pc);transition:background .8s,color .8s}
+.sd-tag .tg-ic .ai{width:16px;height:16px}
+.sd-tag b{display:inline-block}.sd-tag b.sw{animation:phTxt .6s var(--ease)}
+@keyframes phTxt{from{opacity:0;transform:translateY(8px)}}
+.ws-sadhana[data-ph] .sd-tag{border-color:color-mix(in srgb,var(--pc) 65%,#fff0)}
+.ph-sw{position:absolute;left:0;bottom:-6px;z-index:9;display:flex;gap:2px;padding:5px;border-radius:99px;background:#ffffffee;backdrop-filter:blur(10px);box-shadow:0 10px 28px #0c292233}
+.ph-sw button{position:relative;display:flex;align-items:center;gap:6px;border:0;background:none;border-radius:99px;padding:7px 12px 7px 8px;font:inherit;font-size:.75rem;font-weight:700;color:#0f2a22;cursor:pointer;overflow:hidden;transition:background .4s,color .4s}
+.ph-sw button .ai{width:20px;height:20px;flex:none}
+.ph-sw button[aria-selected=true]{background:#0f2a22;color:#fff}
+.ph-sw button[aria-selected=true] .ai{color:var(--pc)}
+.ph-sw button:not([aria-selected=true]):hover{background:#0f2a2214}
+.ph-sw button:focus-visible{outline:2px solid var(--pc);outline-offset:2px}
+.ph-sw button b{position:absolute;left:0;bottom:0;height:3px;width:0;background:var(--pc)}
+.ph-sw.run button[aria-selected=true] b{animation:phBar var(--cy,7s) linear forwards}
+@keyframes phBar{to{width:100%}}
+
+/* ---- floating activity chips ---- */
+.ph-chips{position:absolute;inset:0;pointer-events:none;z-index:8;transition:opacity .35s}
+.ph-chips.out{opacity:0}
+.ph-chip{position:absolute;animation:wBob 6s ease-in-out infinite}
+.ph-chip .ph-in{display:flex;align-items:center;gap:9px;padding:8px 16px 8px 8px;border-radius:99px;background:#ffffffee;backdrop-filter:blur(10px);box-shadow:0 12px 30px #0c292230;font-size:.8rem;font-weight:700;color:var(--ink);white-space:nowrap;animation:phPop .7s var(--ease) both;animation-delay:var(--s,0s)}
+.ph-chip .pi{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:color-mix(in srgb,var(--pc) 22%,#fff);color:color-mix(in srgb,var(--pc) 70%,#0f2a22)}
+.ph-chip .pi .ai{width:22px;height:22px}
+.ph-chip.p1{left:-6%;top:46%;animation-delay:-1s}.ph-chip.p2{right:-5%;top:33%;animation-delay:-2.5s}.ph-chip.p3{left:3%;top:64%;animation-delay:-4s}
+@keyframes phPop{from{opacity:0;transform:translateY(16px) scale(.7)}}
+
+/* ---- animated icons ---- */
+.ai{display:block;width:100%;height:100%;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.ai .fl{fill:currentColor;fill-opacity:.22;transform-box:fill-box;transform-origin:center}
+.ai-sun .r{transform-origin:12px 12px;animation:skSpin 10s linear infinite}.ai-sun .fl{animation:aiPu 2.2s ease-in-out infinite alternate}
+@keyframes aiPu{to{transform:scale(1.18);fill-opacity:.4}}
+.ai-sunset .s{animation:aiSet 3.4s ease-in-out infinite alternate}.ai-sunset .p{animation:aiPu 2s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes aiSet{from{transform:translateY(-1.5px)}to{transform:translateY(3px)}}
+.ai-moon .m{fill:currentColor;fill-opacity:.2;transform-origin:12px 12px;animation:aiMoon 4s ease-in-out infinite alternate}
+.ai-moon .t{animation:aiTw 1.8s ease-in-out infinite alternate;transform-box:fill-box;transform-origin:center}.ai-moon .t2{animation-delay:-.9s}
+@keyframes aiMoon{to{transform:rotate(-10deg) translateY(-.6px);fill-opacity:.4}}@keyframes aiTw{from{opacity:.2;transform:scale(.6)}to{opacity:1;transform:scale(1.15)}}
+.ai-diya .f,.ai-candle .f{fill:currentColor;fill-opacity:.55;transform-box:fill-box;transform-origin:50% 100%;animation:skFl .8s ease-in-out infinite alternate}
+.ai-bell .b{transform-origin:12px 3px;animation:aiSw 1.6s ease-in-out infinite alternate}.ai-bell .b path:first-child{fill:currentColor;fill-opacity:.2}
+@keyframes aiSw{from{transform:rotate(-14deg)}to{transform:rotate(14deg)}}
+.ai-wind path{stroke-dasharray:7 5;animation:aiDash 1.5s linear infinite}.ai-wind path:nth-child(2){animation-duration:1.9s}.ai-wind path:nth-child(3){animation-duration:1.2s}
+@keyframes aiDash{to{stroke-dashoffset:-24}}
+.ai-om text{fill:currentColor;stroke:none;font-size:17px;font-family:"Noto Sans Devanagari","Nirmala UI","Mangal",sans-serif;text-anchor:middle;transform-box:fill-box;transform-origin:center;animation:aiPu 2.2s ease-in-out infinite alternate}
+.ai-stars path{fill:currentColor;fill-opacity:.3;transform-box:fill-box;transform-origin:center;animation:aiTw 1.7s ease-in-out infinite alternate}.ai-stars path:nth-child(2){animation-delay:-.6s}.ai-stars path:nth-child(3){animation-delay:-1.2s}
+
+@media(max-width:600px){.ph-chips{display:none}.ph-sw button span{display:none}.ph-sw button{padding:7px 9px}.ph-sw button[aria-selected=true] span{display:inline}.sd-tag{font-size:.66rem}}
+@media(prefers-reduced-motion:reduce){.sk *,.ph-chip,.ph-chip .ph-in,.ai *,.ph-sw b{animation:none !important}.sk-l,.ph-tint{transition:none}}
+
+/* ---- v2: only the 3 activity chips, no switcher, lighter & smoother ---- */
+.ph-sw,.h-say,.h-home .w-chip{display:none !important}
+/* remove costly effects (blur on live video, blend modes, animated filters) */
+.h-home .w-arch{backdrop-filter:none;-webkit-backdrop-filter:none}
+.h-home .w-arch::before{mix-blend-mode:normal;opacity:.7}
+.ph-chip .ph-in{backdrop-filter:none;background:#fff}
+.ph-tint{mix-blend-mode:normal !important;transition:background-color 1.6s ease}
+.ws-sadhana[data-ph=evening] .ph-tint{background:#d6457022}
+.ws-sadhana[data-ph=night] .ph-tint{background:#0a1a5a66}
+.ws-sadhana[data-ph=night] .ph-tint::after{display:none}
+.ws-sadhana .w-disc,.ws-sadhana .sd-halo{transition:none}
+.ws-sadhana[data-ph=evening] .w-disc{filter:none;background:radial-gradient(circle at 34% 28%,#fff4ea,#ffb892 55%,#ff8a5c);box-shadow:0 0 90px #ff8a5c55}
+.ws-sadhana[data-ph=night] .w-disc{filter:none;background:radial-gradient(circle at 34% 28%,#f1f5ff,#9fb4ff 55%,#5a6fd0);box-shadow:0 0 90px #7f98ff55}
+.ws-sadhana[data-ph=evening] .sd-halo,.ws-sadhana[data-ph=night] .sd-halo{filter:none}
+.ws-sadhana[data-ph=evening] .sd-halo{opacity:.85}.ws-sadhana[data-ph=night] .sd-halo{opacity:.55}
+.sk-moon{filter:none;animation:none;filter:drop-shadow(0 0 8px #ffe9a8aa)}
+.sk-sh{display:none}
+/* GPU-friendly: only transform/opacity animate, layers are promoted */
+.sk-l,.sk-sun,.sk-rays,.sk-cl,.sk-bd,.sk-st s,.sk-ff b,.ph-chip,.ph-chips{will-change:transform,opacity}
+.sk-l{transition:opacity 1.8s ease-in-out}
+.sk-rays{-webkit-mask:none;mask:none;background:repeating-conic-gradient(#fff6c840 0 6deg,#0000 6deg 20deg);opacity:.8}
+.sk-sun{contain:layout paint}
+.sk-st s{box-shadow:none}
+.sk-ff b{box-shadow:0 0 6px 2px #d6ff9aaa}
+.ph-chips{transition:opacity .6s ease-in-out}
+.ph-chip .ph-in{animation-duration:1s;animation-timing-function:cubic-bezier(.22,.8,.3,1)}
+.ph-chip{animation-duration:8s}
+/* chip positions now that other chips are gone */
+.ph-chip.p1{left:-4%;top:30%}.ph-chip.p2{right:-4%;top:46%}.ph-chip.p3{left:2%;top:62%}
+
+/* chips timed to the voice */
+.ph-chips.sync .ph-chip .ph-in{animation:none;opacity:0;transform:translateY(16px) scale(.7)}
+.ph-chips.sync .ph-chip.cue .ph-in{opacity:1;transform:none;animation:phPop .8s cubic-bezier(.22,.8,.3,1) both;animation-delay:0s}

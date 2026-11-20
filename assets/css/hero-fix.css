@@ -1,0 +1,27 @@
+/* ===== HERO FIX: oval corners on all 4 sides + smooth, lag-free background video ===== */
+body.h-home .w-hero{
+  border-radius:64px;
+  clip-path:inset(0 round 64px);      /* hard clip: video can never poke out of the rounded corners */
+  -webkit-clip-path:inset(0 round 64px);
+  isolation:isolate;
+  overflow:hidden;
+}
+@media(max-width:700px){
+  body.h-home .w-hero{border-radius:36px;clip-path:inset(0 round 36px);-webkit-clip-path:inset(0 round 36px)}
+}
+/* video: plain GPU layer, no zoom animation / filter / paint containment (these caused the stutter) */
+body.h-home .w-hero .h-vid{
+  filter:none;animation:none;contain:none;
+  transform:translateZ(0);will-change:auto;backface-visibility:hidden;
+  object-fit:cover;object-position:30% 20%;
+}
+body.h-home .w-hero.off .h-vid{visibility:visible}   /* no hide/show flicker; JS still pauses it off-screen */
+/* big animated blur blobs repainted every frame on top of the video: removed */
+body.h-home .w-hero .w-blob{display:none}
+
+/* hero starts BELOW the fixed header so the top corners are visible (header is 88px, 70px on phones).
+   padding/min-height are reduced by the same amount, so the hero content stays exactly where it was */
+body.h-home .w-hero{margin-top:88px;padding-top:72px;min-height:calc(94vh - 88px)}
+@media(max-width:600px){
+  body.h-home .w-hero{margin-top:70px;padding-top:48px;min-height:calc(94vh - 70px)}
+}
